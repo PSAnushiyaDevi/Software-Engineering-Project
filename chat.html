@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Chat - The Talented Trove</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+  .chat-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 120px);
+  }
+
+  .chat-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .chat-header .avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+  }
+
+  .chat-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+  }
+
+  .chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f5f7fa;
+  }
+
+  .message {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .message.sent {
+    align-items: flex-end;
+  }
+
+  .message.received {
+    align-items: flex-start;
+  }
+
+  .message-content {
+    max-width: 70%;
+    padding: 15px;
+    border-radius: 18px;
+    position: relative;
+  }
+
+  .message.sent .message-content {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border-bottom-right-radius: 5px;
+  }
+
+  .message.received .message-content {
+    background: white;
+    color: #333;
+    border-bottom-left-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  .message-time {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 5px;
+  }
+
+  .chat-input {
+    padding: 20px;
+    background: white;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 10px;
+  }
+
+  .chat-input input {
+    flex: 1;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    font-size: 1em;
+  }
+
+  .chat-input button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+  }
+
+  .chat-input button:hover {
+    background: linear-gradient(135deg, #5a67d8, #6b46c1);
+  }
+
+  .no-messages {
+    text-align: center;
+    padding: 40px;
+    color: #888;
+  }
+
+  .back-btn {
+    margin-right: 15px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .video-call-btn {
+    margin-left: auto;
+    background: rgba(255,255,255,0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .video-call-btn:hover {
+    background: rgba(255,255,255,0.3);
+  }
+</style>
+</head>
+<body>
+<header class="header container">
+  <div class="brand-left" style="display: flex; align-items: center; gap: 10px;">
+    <img src="project logo.png" alt="The Talented Trove" class="logo">
+    <h1>The Talented Trove</h1>
+  </div>
+  <nav>
+    <a class="btn secondary" href="dashboard.html">Dashboard</a>
+    <a class="btn secondary" href="profiles.html">Profiles</a>
+    <a class="btn secondary" href="sessions.html">Sessions</a>
+  </nav>
+</header>
+
+<div class="chat-container">
+  <div class="chat-header">
+    <i class="fas fa-arrow-left back-btn" onclick="window.location.href='match.html'"></i>
+    <div class="avatar" id="chatAvatar"></div>
+    <div>
+      <h2 id="chatName"></h2>
+      <p id="chatStatus">Online</p>
+    </div>
+    <button class="video-call-btn" id="videoCallBtn" title="Start Video Call">
+      <i class="fas fa-video"></i>
+    </button>
+  </div>
+  
+  <div class="chat-messages" id="chatMessages">
+    <div class="no-messages">
+      <i class="fas fa-comments" style="font-size: 3em; margin-bottom: 15px; color: #ddd;"></i>
+      <p>No messages yet. Start a conversation!</p>
+    </div>
+  </div>
+  
+  <div class="chat-input">
+    <input type="text" id="messageInput" placeholder="Type a message...">
+    <button id="sendBtn">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </div>
+</div>
+
+<script src="header.js"></script>
+<script src="chat.js"></script>
+</body>
+</html>

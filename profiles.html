@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Profiles - The Talented Trove</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+  /* Profiles Page Specific Styles */
+  .profiles-page {
+    background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .profiles-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .quote-section {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .quote-section i {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .quote-section p {
+    font-style: italic;
+    font-size: 1.2em;
+    margin: 0;
+  }
+
+  .profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .profile-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  }
+
+  .profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(to bottom, #4CAF50, #2E7D32);
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .profile-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-right: 15px;
+  }
+
+  .profile-info h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+  }
+
+  .profile-info p {
+    margin: 0;
+    color: #666;
+  }
+
+  .profile-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .detail-item i {
+    margin-right: 8px;
+    color: #4CAF50;
+    width: 20px;
+    text-align: center;
+  }
+
+  .profile-timeline {
+    background: #f5f7fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+  }
+
+  .timeline-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .timeline-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .timeline-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #4CAF50;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  .timeline-content {
+    flex: 1;
+  }
+
+  .timeline-content p {
+    margin: 0;
+    font-size: 0.9em;
+  }
+
+  .timeline-content small {
+    color: #666;
+  }
+
+  .refresh-btn {
+    background: linear-gradient(135deg, #4CAF50, #2E7D32);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .refresh-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+  }
+
+  .waiting-section {
+    margin-top: 40px;
+  }
+
+  .waiting-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-left: 5px solid #ff9800;
+  }
+
+  .waiting-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .status-badge {
+    background: #ff9800;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+  }
+
+  .no-waiting {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .no-waiting i {
+    font-size: 3em;
+    color: #ddd;
+    margin-bottom: 15px;
+  }
+</style>
+<script>
+  // Authentication check
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('current_user') || '{}');
+    if (!currentUser.email) {
+      alert('Please log in to access this page.');
+      window.location.href = 'signup.html';
+    }
+  });
+</script>
+</head>
+<body class="profiles-page">
+<header class="header container">
+  <div class="brand-left" style="display: flex; align-items: center; gap: 10px;">
+    <img src="project logo.png" alt="The Talented Trove" class="logo-image">
+    <h1>The Talented Trove</h1>
+  </div>
+  <nav>
+    <a class="btn secondary" href="dashboard.html">Dashboard</a>
+    <a class="btn secondary" href="sessions.html">Sessions</a>
+  </nav>
+</header>
+
+<main class="container profiles-container">
+  <div class="quote-section">
+    <i class="fas fa-quote-left"></i>
+    <p>"Alone we can do so little; together we can do so much." - Helen Keller</p>
+  </div>
+
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2>Community Members <span id="memberCount"></span></h2>
+    <button class="refresh-btn" id="refreshProfiles">
+      <i class="fas fa-sync-alt"></i> Refresh List
+    </button>
+  </div>
+
+  <div id="profilesContainer"></div>
+
+  <div class="waiting-section">
+    <h3>People Waiting to Match</h3>
+    <div id="waitingList"></div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; 2025 The Talented Trove | Contact: support@talentedtrove.com</p>
+</footer>
+
+<script src="profiles.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Book a Session • The Talented Trove</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header"><h1>Book Your Session</h1></header>
+  <main style="padding:24px;max-width:700px;margin:auto;background:#fff;border-radius:16px;">
+    <form id="sessionForm">
+      <label>Date: <input type="date" id="date" required></label><br/><br/>
+      <label>Time: <input type="time" id="time" required></label><br/><br/>
+      <label>Mode:
+        <select id="mode">
+          <option>Online</option>
+          <option>Offline</option>
+        </select>
+      </label><br/><br/>
+      <label>Location (if offline):
+        <input type="text" id="location" placeholder="City / Address">
+      </label><br/><br/>
+      <button class="btn" type="submit">Confirm</button>
+    </form>
+  </main>
+  <script>
+    document.getElementById('sessionForm').addEventListener('submit', e => {
+      e.preventDefault();
+      alert('Session saved locally (demo). You can add a /sessions API to persist it.');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!-- match.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Skill Match - The Talented Trove</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<header class="header container">
+  <div class="brand-left" style="display: flex; align-items: center; gap: 10px;">
+    <img src="project logo.png" alt="The Talented Trove" class="logo-image">
+    <h1>The Talented Trove</h1>
+  </div>
+  <nav>
+    <a class="btn secondary" href="profiles.html">Profiles</a>
+    <a class="btn secondary" href="sessions.html">Sessions</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2>AI Matched Skill Pairs</h2>
+  <div id="matchesContainer"></div>
+</main>
+
+<!-- Session Request Modal -->
+<div id="sessionModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Request a Session</h3>
+      <span class="close-btn">&times;</span>
+    </div>
+    
+    <div class="session-type-selector">
+      <div class="session-type-option" data-type="online">
+        <i class="fas fa-video"></i>
+        <h4>Online Session</h4>
+        <p>Connect via video call</p>
+      </div>
+      <div class="session-type-option" data-type="offline">
+        <i class="fas fa-map-marker-alt"></i>
+        <h4>Offline Session</h4>
+        <p>Meet in person</p>
+      </div>
+    </div>
+    
+    <div id="onlineForm" class="session-form">
+      <div class="form-group">
+        <label for="onlineDate">Date & Time</label>
+        <input type="datetime-local" id="onlineDate" required>
+      </div>
+      <div class="form-group">
+        <label for="onlineNotes">Session Notes</label>
+        <textarea id="onlineNotes" rows="3" placeholder="What would you like to cover in this session?"></textarea>
+      </div>
+    </div>
+    
+    <div id="offlineForm" class="session-form">
+      <div class="form-group">
+        <label for="offlineDate">Date & Time</label>
+        <input type="datetime-local" id="offlineDate" required>
+      </div>
+      <div class="form-group">
+        <label for="offlineLocation">Location</label>
+        <input type="text" id="offlineLocation" placeholder="Enter meeting location" required>
+      </div>
+      <div class="map-container" id="mapContainer">
+        <!-- Map will be loaded here -->
+      </div>
+      <div class="form-group">
+        <label for="offlineNotes">Session Notes</label>
+        <textarea id="offlineNotes" rows="3" placeholder="What would you like to cover in this session?"></textarea>
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button class="btn secondary" id="cancelBtn">Cancel</button>
+      <button class="btn primary" id="submitBtn">Send Request</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2025 The Talented Trove | Contact: support@talentedtrove.com</p>
+</footer>
+
+<script src="header.js"></script>
+<script src="match.js"></script>
+</body>
+</html>

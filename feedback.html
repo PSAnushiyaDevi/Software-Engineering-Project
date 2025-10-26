@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Feedback - The Talented Trove</title>
+<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<style>
+  /* Feedback Page Specific Styles */
+  .feedback-page {
+    background-image: url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .feedback-container {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 30px;
+    margin-top: 30px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .feedback-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .feedback-header i {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .feedback-header h2 {
+    margin: 0;
+    font-size: 1.8em;
+  }
+
+  .feedback-form {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .feedback-form h3 {
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .feedback-form h3 i {
+    margin-right: 10px;
+    color: #667eea;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: #667eea;
+    outline: none;
+  }
+
+  .rating-stars {
+    display: flex;
+    gap: 5px;
+    margin-top: 8px;
+  }
+
+  .rating-stars i {
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .rating-stars i.active {
+    color: #ffc107;
+  }
+
+  .feedback-list {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+
+  .feedback-list h3 {
+    color: #333;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  .feedback-list h3 i {
+    margin-right: 10px;
+    color: #667eea;
+  }
+
+  .feedback-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 15px;
+  }
+
+  .feedback-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .feedback-header-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .feedback-user {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .feedback-rating {
+    color: #ffc107;
+  }
+
+  .feedback-comment {
+    color: #555;
+    margin-bottom: 5px;
+  }
+
+  .feedback-date {
+    font-size: 0.8em;
+    color: #888;
+  }
+
+  .no-feedback {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+  }
+
+  .no-feedback i {
+    font-size: 3em;
+    color: #ddd;
+    margin-bottom: 15px;
+  }
+</style>
+<script>
+  // Authentication check
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('current_user') || '{}');
+    if (!currentUser.email) {
+      alert('Please log in to access this page.');
+      window.location.href = 'signup.html';
+    }
+  });
+</script>
+</head>
+<body class="feedback-page">
+<header class="header container">
+  <div class="brand-left">
+    <img src="project logo.png" alt="The Talented Trove" class="logo-image">
+    <h1>The Talented Trove</h1>
+  </div>
+  <nav>
+    <a class="btn secondary" href="dashboard.html">Dashboard</a>
+  </nav>
+</header>
+
+<main class="container feedback-container">
+  <div class="feedback-header">
+    <i class="fas fa-comments"></i>
+    <h2>Share Your Experience</h2>
+  </div>
+
+  <section class="feedback-form">
+    <h3><i class="fas fa-star"></i> Leave Feedback for a Session</h3>
+    <form id="feedbackForm">
+      <div class="form-group">
+        <label for="fbWith">Session With (Email/Name)</label>
+        <input id="fbWith" class="input" required />
+      </div>
+      <div class="form-group">
+        <label for="fbRating">Rating</label>
+        <select id="fbRating" class="input">
+          <option value="5">5 - Excellent</option>
+          <option value="4">4 - Very Good</option>
+          <option value="3">3 - Good</option>
+          <option value="2">2 - Fair</option>
+          <option value="1">1 - Poor</option>
+        </select>
+        <div class="rating-stars">
+          <i class="fas fa-star" data-rating="1"></i>
+          <i class="fas fa-star" data-rating="2"></i>
+          <i class="fas fa-star" data-rating="3"></i>
+          <i class="fas fa-star" data-rating="4"></i>
+          <i class="fas fa-star" data-rating="5"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="fbComment">Comments</label>
+        <textarea id="fbComment" rows="4" class="input" placeholder="Share your experience..."></textarea>
+      </div>
+      <button class="btn primary" type="submit">Submit Feedback</button>
+    </form>
+  </section>
+
+  <section class="feedback-list">
+    <h3><i class="fas fa-history"></i> Recent Feedback</h3>
+    <div id="feedbackList"></div>
+  </section>
+</main>
+<script src="feedback.js"></script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!-- sessions.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Sessions - The Talented Trove</title>
+<link rel="stylesheet" href="style.css" />
+<script>
+  // Authentication check
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('current_user') || '{}');
+    if (!currentUser.email) {
+      alert('Please log in to access this page.');
+      window.location.href = 'signup.html';
+    }
+  });
+</script>
+</head>
+<body>
+<header class="header container">
+  <div class="brand-left">
+    <img src="project logo.png" alt="The Talented Trove" class="logo-image">
+    <h1>The Talented Trove</h1>
+  </div>
+  <nav>
+    <a class="btn secondary" href="profiles.html">Profiles</a>
+    <a class="btn secondary" href="match.html">Match</a>
+    <a class="btn secondary" href="feedback.html">Feedback</a>
+  </nav>
+</header>
+
+<main class="container">
+  <h2>Your Sessions</h2>
+  <div id="sessionList"></div>
+</main>
+
+<footer>
+  <p>&copy; 2025 The Talented Trove | Contact: support@talentedtrove.com</p>
+</footer>
+
+<script src="header.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('current_user') || '{}');
+    if (!currentUser.email) {
+      alert('Please log in to view sessions.');
+      window.location.href = 'signup.html';
+      return;
+    }
+
+    // Fetch sessions from backend
+    fetch(`http://localhost:5000/sessions?email=${currentUser.email}`)
+      .then(response => response.json())
+      .then(sessions => {
+        renderSessions(sessions);
+      })
+      .catch(error => {
+        console.error('Error fetching sessions:', error);
+        document.getElementById('sessionList').innerHTML = '<p>Error loading sessions.</p>';
+      });
+
+    // Function to render sessions
+    function renderSessions(sessions) {
+      const sessionList = document.getElementById('sessionList');
+      sessionList.innerHTML = '';
+
+      if (sessions.length === 0) {
+        sessionList.innerHTML = '<p>No sessions found.</p>';
+        return;
+      }
+
+      sessions.forEach(session => {
+        const sessionCard = document.createElement('div');
+        sessionCard.className = 'card';
+
+        // Determine if the current user is the requester or recipient
+        const isRequester = session.requester.email === currentUser.email;
+        const otherUser = isRequester ? session.recipient : session.requester;
+
+        let statusActions = '';
+        if (session.status === 'pending' && !isRequester) {
+          // If the current user is the recipient, show accept/decline
+          statusActions = `
+            <button class="btn primary" onclick="updateSessionStatus('${session._id}', 'accepted')">Accept</button>
+            <button class="btn secondary" onclick="updateSessionStatus('${session._id}', 'declined')">Decline</button>
+          `;
+        }
+
+        sessionCard.innerHTML = `
+          <h4>Session with ${otherUser.name}</h4>
+          <p>Type: ${session.type}</p>
+          <p>Date: ${new Date(session.date).toLocaleString()}</p>
+          ${session.location ? `<p>Location: ${session.location}</p>` : ''}
+          <p>Notes: ${session.notes || 'None'}</p>
+          <p>Status: ${session.status}</p>
+          <div class="session-actions">
+            ${statusActions}
+          </div>
+        `;
+
+        sessionList.appendChild(sessionCard);
+      });
+    }
+
+    // Function to update session status
+    window.updateSessionStatus = function(sessionId, status) {
+      fetch(`http://localhost:5000/sessions/${sessionId}/status`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message) {
+          alert(data.message);
+          // Refresh the sessions list
+          window.location.reload();
+        } else {
+          alert('Error updating session status');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating session status');
+      });
+    };
+  });
+</script>
+</body>
+</html>

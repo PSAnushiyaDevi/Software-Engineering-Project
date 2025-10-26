@@ -1,0 +1,74 @@
+<!-- dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Dashboard - The Talented Trove</title>
+<link rel="stylesheet" href="style.css" />
+<script>
+  // Authentication check
+  document.addEventListener('DOMContentLoaded', () => {
+    const currentUser = JSON.parse(localStorage.getItem('current_user') || '{}');
+    if (!currentUser.email) {
+      alert('Please log in to access this page.');
+      window.location.href = 'signup.html';
+    }
+  });
+</script>
+</head>
+<body>
+  <body class="dashboard-page"></body>
+<header class="header container">
+  <div class="brand-left" style="display: flex; align-items: center; gap: 10px;">
+    <img src="project logo.png" alt="The Talented Trove" class="logo-image">
+    <h1>Dashboard</h1>
+  </div>
+  <nav>
+  <a class="btn secondary" href="sessions.html">Sessions</a>
+  <a class="btn secondary" href="feedback.html">Feedback</a>
+  <a class="btn secondary" href="members.html">All Members</a>
+  <a class="btn secondary" href="index.html" onclick="localStorage.clear();">Logout</a>
+</nav>
+</header>
+
+<main class="container">
+  <h2>Welcome, <span id="userDisplay"></span></h2>
+  <div class="grid" style="margin-top:20px;">
+    <div class="card" id="statMembers">
+      <h4>Total Members</h4>
+      <div id="statMembersVal" style="font-size:2em;">0</div>
+    </div>
+    <div class="card" id="statPending">
+      <h4>Pending Matches</h4>
+      <div id="pendingCount" style="font-size:2em;">0</div>
+    </div>
+    <div class="card" id="statSessions">
+      <h4>Upcoming Sessions</h4>
+      <div id="upcomingCount" style="font-size:2em;">0</div>
+    </div>
+  </div>
+  
+  <section style="margin-top:30px;">
+    <h3>Quick Links</h3>
+    <div class="grid">
+      <a href="profiles.html" class="card">View Profiles</a>
+      <a href="members.html" class="card">All Members</a>
+      <a href="sessions.html" class="card">My Sessions</a>
+      <a href="match.html" class="card">Find Matches</a>
+      <a href="feedback.html" class="card">Feedback</a>
+      <a href="calendar.html" class="card">Book Session</a>
+    </div>
+  </section>
+  
+  <section style="margin-top:30px;">
+    <h3>Your Profile</h3>
+    <div id="userProfileCard" class="card">
+        <!-- User specific details will load here from current_user localStorage -->
+    </div>
+  </section>
+</main>
+
+<script src="header.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>
