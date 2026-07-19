@@ -45,7 +45,7 @@ sessionTypeOptions.forEach(option => {
 // Load matches from backend
 async function loadMatches() {
   try {
-    const res = await fetch('http://localhost:5000/match');
+    const res = await fetch('/match');
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
@@ -225,7 +225,7 @@ function submitSessionRequest() {
     return;
   }
   
-  fetch('http://localhost:5000/sessions', {
+  fetch('/sessions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
