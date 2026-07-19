@@ -4,8 +4,12 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import multer from 'multer';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -78,6 +82,9 @@ const Message = mongoose.model('Message', messageSchema);
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// Serve static files (HTML, CSS, JS, images)
+app.use(express.static(__dirname));
+
 
 // Register endpoint with certificate upload
 app.post('/register', upload.single('certificate'), async (req, res) => {
@@ -478,6 +485,8 @@ app.get('/conversations', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
-
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "index.html"));
+});
 // Start server
 app.listen(PORT, () => console.log(`✅ Server running at http://localhost:${PORT}`));
