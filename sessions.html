@@ -104,7 +104,7 @@
 
     // Function to update session status
     window.updateSessionStatus = function(sessionId, status) {
-      fetch(`http://localhost:5000/sessions/${sessionId}/status`, {
+      fetch(`/sessions/${sessionId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
