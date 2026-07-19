@@ -49,7 +49,7 @@
     }
 
     // Fetch sessions from backend
-    fetch(`http://localhost:5000/sessions?email=${currentUser.email}`)
+    fetch(`/sessions?email=${currentUser.email}`)
       .then(response => response.json())
       .then(sessions => {
         renderSessions(sessions);
