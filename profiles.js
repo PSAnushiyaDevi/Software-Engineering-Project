@@ -1,7 +1,7 @@
 // profiles.js
 async function fetchUsers() {
   try {
-    const res = await fetch('http://localhost:5000/users');
+    const res = await const res = await fetch('/users');
     if (res.ok) {
       const users = await res.json();
       localStorage.setItem('talent_users', JSON.stringify(users));
