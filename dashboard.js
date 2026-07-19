@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function fetchAllUsersAndRenderStats() {
     let users = [];
     try {
-      const res = await fetch('http://localhost:5000/users');
+      const res = await fetch('/users');
       if (res.ok) {
         users = await res.json();
         localStorage.setItem('talent_users', JSON.stringify(users)); // Update local cache
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let sessions = [];
     try {
       if (currentUser.email) {
-        const sessionRes = await fetch(`http://localhost:5000/sessions?email=${currentUser.email}`);
+        const sessionRes = await fetch(`/sessions?email=${encodeURIComponent(currentUser.email)}`);
         if (sessionRes.ok) {
           sessions = await sessionRes.json();
         }
