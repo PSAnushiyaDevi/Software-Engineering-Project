@@ -40,7 +40,7 @@ if (registerForm) {
 
     try {
       // Send request to backend
-      const response = await fetch("http://localhost:5000/register", {
+      const response = await fetch("/register", {
         method: "POST",
         body: formData  // Send as FormData instead of JSON
       });
@@ -76,7 +76,7 @@ if (loginForm) {
 
     try {
       // Send request to backend
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("/login", {
         method: "POST",
         headers: { 
           "Content-Type": "application/json"
