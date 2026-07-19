@@ -145,7 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function checkUnreadMessages() {
       try {
-        const response = await fetch(`http://localhost:5000/messages/unread-count?userEmail=${encodeURIComponent(currentUser.email)}`);
+        const response = await fetch(`/messages/unread-count?userEmail=${encodeURIComponent(currentUser.email)}`)
         if (response.ok) {
           const data = await response.json();
           const count = data.count;
