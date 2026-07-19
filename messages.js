@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadConversations() {
   try {
     const currentUser = JSON.parse(localStorage.getItem('current_user') || '{}');
-    const response = await fetch(`http://localhost:5000/conversations?userEmail=${encodeURIComponent(currentUser.email)}`);
+    const response = await fetch(`/conversations?userEmail=${encodeURIComponent(currentUser.email)}`)
     
     if (response.ok) {
       const conversations = await response.json();
@@ -99,7 +99,7 @@ function displayConversations(conversations) {
   // If we have an active conversation from URL and it's not in the list, add it
   if (activeEmail && !conversations.some(c => c.user.email === activeEmail)) {
     // Find the user details
-    fetch(`http://localhost:5000/users`)
+    fetch(`/users`)
       .then(response => response.json())
       .then(users => {
         const user = users.find(u => u.email === activeEmail);
@@ -165,8 +165,7 @@ function formatTime(timestamp) {
 async function loadChat(otherUserEmail) {
   try {
     const currentUser = JSON.parse(localStorage.getItem('current_user') || '{}');
-    const response = await fetch(`http://localhost:5000/messages?userEmail=${encodeURIComponent(currentUser.email)}&otherUserEmail=${encodeURIComponent(otherUserEmail)}`);
-    
+    const response = await fetch(`/messages?userEmail=${encodeURIComponent(currentUser.email)}&otherUserEmail=${encodeURIComponent(otherUserEmail)}`)
     if (response.ok) {
       const messages = await response.json();
       displayChat(messages, otherUserEmail);
@@ -248,7 +247,7 @@ function displayChat(messages, otherUserEmail) {
     if (!content) return;
     
     try {
-      const response = await fetch('http://localhost:5000/messages', {
+      const response = await fetch('/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
