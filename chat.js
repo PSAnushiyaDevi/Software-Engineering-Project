@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   async function loadMessages() {
     try {
-      const response = await fetch(`http://localhost:5000/messages?userEmail=${encodeURIComponent(userEmail)}&otherUserEmail=${encodeURIComponent(withEmail)}`);
+      const response = await fetch(`/messages?userEmail=${encodeURIComponent(userEmail)}&otherUserEmail=${encodeURIComponent(withEmail)}`)
       if (response.ok) {
         const messages = await response.json();
         displayMessages(messages);
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!content) return;
     
     try {
-      const response = await fetch('http://localhost:5000/messages', {
+      const response = await fetch('/messages', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
