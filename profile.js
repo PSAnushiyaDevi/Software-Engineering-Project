@@ -49,21 +49,21 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Fetch and display stats
   try {
     // Get user count
-    const usersRes = await fetch('http://localhost:5000/users');
+    const usersRes = await const usersRes = await fetch('/users');
     if (usersRes.ok) {
       const users = await usersRes.json();
       document.getElementById('memberCount').textContent = users.length;
     }
     
     // Get sessions count
-    const sessionsRes = await fetch(`http://localhost:5000/sessions?email=${currentUser.email}`);
+    const sessionsRes = await const sessionsRes = await fetch(`/sessions?email=${currentUser.email}`);
     if (sessionsRes.ok) {
       const sessions = await sessionsRes.json();
       document.getElementById('sessionCount').textContent = sessions.length;
     }
     
     // Get matches count
-    const matchesRes = await fetch('http://localhost:5000/match');
+    const matchesRes = await const matchesRes = await fetch('/match');
     if (matchesRes.ok) {
       const matches = await matchesRes.json();
       const userMatches = matches.filter(m => 
